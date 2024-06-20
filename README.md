@@ -29,3 +29,8 @@ Trainable, memory-efficient, and GPU-friendly PyTorch reproduction of AlphaFold 
 [Paper](https://www.biorxiv.org/content/10.1101/2022.11.20.517210v1)
 [Repo](https://github.com/aqlaboratory/openfold)
 
+### ProstT5
+ProstT5 is a protein language model (pLM) which can translate between protein sequence and structure.
+[Paper](https://www.biorxiv.org/content/10.1101/2023.07.23.550085v1)
+[Repo](https://huggingface.co/Rostlab/ProstT5)
+
