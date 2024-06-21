@@ -49,6 +49,10 @@ ProtGPT2 (peer-reviewed paper) is a language model that speaks the protein langu
 [Paper](https://www.nature.com/articles/s41467-022-32007-7)
 [Repo](https://huggingface.co/nferruz/ProtGPT2)
 
+### REXzyme
+A Translation Machine for the Generation of New-to-Nature Enzymes
+
+
 
 
 
