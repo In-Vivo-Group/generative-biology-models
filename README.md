@@ -34,3 +34,21 @@ ProstT5 is a protein language model (pLM) which can translate between protein se
 [Paper](https://www.biorxiv.org/content/10.1101/2023.07.23.550085v1)
 [Repo](https://huggingface.co/Rostlab/ProstT5)
 
+### ProtT5-XL
+Pretrained model on protein sequences using a masked language modeling (MLM) objective.
+[Paper](https://doi.org/10.1101/2020.07.12.199554)
+[Repo](https://github.com/agemagician/ProtTrans)
+
+### ProtBert
+Pretrained model on protein sequences using a masked language modeling (MLM) objective. This model is trained on uppercase amino acids: it only works with capital letter amino acids.
+[Paper](https://www.biorxiv.org/content/10.1101/2020.07.12.199554v3)
+[Repo](https://github.com/agemagician/ProtTrans)
+
+### ProtGPT2
+ProtGPT2 (peer-reviewed paper) is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
+[Paper](https://www.nature.com/articles/s41467-022-32007-7)
+[Repo](https://huggingface.co/nferruz/ProtGPT2)
+
+
+
+
