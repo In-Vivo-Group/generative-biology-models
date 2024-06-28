@@ -24,168 +24,168 @@ ESMFold is a state-of-the-art end-to-end protein folding model based on an ESM-2
 [Paper](https://www.biorxiv.org/content/10.1101/2022.07.20.500902v1)
 [Repo](https://github.com/facebookresearch/esm)
 
-### OpenFold
+## OpenFold
 Trainable, memory-efficient, and GPU-friendly PyTorch reproduction of AlphaFold 2
 [Paper](https://www.biorxiv.org/content/10.1101/2022.11.20.517210v1)
 [Repo](https://github.com/aqlaboratory/openfold)
 
-### ProstT5
+## ProstT5
 ProstT5 is a protein language model (pLM) which can translate between protein sequence and structure.
 [Paper](https://www.biorxiv.org/content/10.1101/2023.07.23.550085v1)
 [Repo](https://huggingface.co/Rostlab/ProstT5)
 
-### ProtT5-XL
+## ProtT5-XL
 Pretrained model on protein sequences using a masked language modeling (MLM) objective.
 [Paper](https://doi.org/10.1101/2020.07.12.199554)
 [Repo](https://github.com/agemagician/ProtTrans)
 
-### ProtBert
+## ProtBert
 Pretrained model on protein sequences using a masked language modeling (MLM) objective. This model is trained on uppercase amino acids: it only works with capital letter amino acids.
 [Paper](https://www.biorxiv.org/content/10.1101/2020.07.12.199554v3)
 [Repo](https://github.com/agemagician/ProtTrans)
 
-### ProtBERT-BFD
+## ProtBERT-BFD
 [Paper](https://www.biorxiv.org/content/10.1101/2020.07.12.199554v4)
 [Repo](https://github.com/agemagician/ProtTrans)
 
-### ProtGPT2
+## ProtGPT2
 ProtGPT2 (peer-reviewed paper) is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
 [Paper](https://www.nature.com/articles/s41467-022-32007-7)
 [Repo](https://huggingface.co/nferruz/ProtGPT2)
 
-### AlphaFold2
+## AlphaFold2
 Protein structure prediction
 
 AlphaFold is an AI system developed by Google DeepMind that predicts a protein's 3D structure from its amino acid sequence
 [Paper](https://www.nature.com/articles/s41586-021-03819-2)
 [Repo](https://github.com/deepmind/alphafold)
 
-### DeepFRI
+## DeepFRI
 Protein function prediction
 
 DeepFRI is a structure-based protein function prediction (and functional residue identification) method using Graph Convolutional Networks with Language Model features.
 [Paper](https://www.biorxiv.org/content/10.1101/786236v2)
 [Repo](https://github.com/flatironinstitute/DeepFRI)
 
-### DistilProtBERT
+## DistilProtBERT
 protein language model
 
 A distilled protein language model used to distinguish between real proteins and their randomly shuffled counterparts
 [Paper](https://academic.oup.com/bioinformatics/article/38/Supplement_2/ii95/6701995?login=true)
 [Repo](https://github.com/yarongef/DistilProtBert)
 
-### EvoDiff
+## EvoDiff
 protein generation
 
 Combines evolutionary-scale data with the distinct conditioning capabilities of diffusion models for controllable protein generation in sequence space
 [Paper](https://www.biorxiv.org/content/10.1101/2023.09.11.556673v1)
 [Repo](https://github.com/microsoft/evodiff)
 
-### HelixFold
+## HelixFold
 protein structure prediction
 
 An Efficient Implementation of AlphaFold2 using PaddlePaddle
 [Paper](https://arxiv.org/abs/2207.05477)
 [Repo](https://github.com/PaddlePaddle/PaddleHelix/tree/dev/apps/protein_folding/helixfold)
 
-### OmegaFold
+## OmegaFold
 protein structure prediction
 
 OmegaFold is the first computational method to successfully predict high-resolution protein structure from a single primary sequence alone
 [Repo](https://www.biorxiv.org/content/10.1101/2022.07.21.500999v1)
 [Repo](https://github.com/HeliXonProtein/OmegaFold)
 
-### PRoBERTa
+## PRoBERTa
 protein language model
 
 The PRoBERTa model is fine-tuned to solve two prediction tasks, protein family memberships and protein-protein interactions.
 [Paper](https://dl.acm.org/doi/10.1145/3388440.3412467)
 [Repo](https://github.com/annambiar/PRoBERTa)
 
-### ProGen
+## ProGen
 protein language model
 
  ProGen can learn the language of biology in order to controllably generate proteins.
 [Repo](https://www.nature.com/articles/s41587-022-01618-2)
 [Repo](https://github.com/salesforce/progen)
 
-### Protein Generator
+## Protein Generator
 protein generation
 
 Generate sequence-structure pairs with RoseTTAFold
 [Paper](https://www.biorxiv.org/content/10.1101/2023.05.08.539766v1)
 [Repo](https://github.com/RosettaCommons/protein_generator)
 
-### ProteinMPNN
+## ProteinMPNN
 protein generation
 
 ProteinMPNN generates highly stable sequences for designed backbones, and for native backbones, it generates sequences that are predicted to fold to the intended structures more confidently than their native sequences.
 [Paper](https://www.biorxiv.org/content/10.1101/2022.06.03.494563v1)
 [Repo](https://github.com/dauparas/ProteinMPNN)
 
-### ProtENN
+## ProtENN
 protein function prediction
 [Paper](https://www.nature.com/articles/s41587-021-01179-w)
 [Repo](https://github.com/google-research/google-research/tree/master/using_dl_to_annotate_protein_universe#availability-of-trained-models)
 
-### ProtEnT
+## ProtEnT
 protein language model
 [Paper](https://www.biorxiv.org/content/10.1101/2023.07.15.549154v2)
 [Repo](https://github.com/GrayLab/MaskedProteinEnT)
 
-### RFDiffusion
+## RFDiffusion
 protein generation
 
 RFdiffusion is an open source method for structure generation, with or without conditional information
 [Paper](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
 [Repo](https://github.com/RosettaCommons/RFdiffusion)
 
-### RGN2
+## RGN2
 protein language model
 [Paper](https://www.biorxiv.org/content/10.1101/2021.08.02.454840v1)
 [Repo](https://github.com/aqlaboratory/rgn2)
 
-### RITA
+## RITA
 protein language model
 [Paper](https://huggingface.co/papers/2205.05789)
 [Repo](https://huggingface.co/lightonai/RITA_xl)
 
-### RoseTTaFold
+## RoseTTaFold
 protein structure prediction
 
 RoseTTAFold Diffusion is a guided diffusion model that can be used to generate protein structures in seconds
 [Paper](https://www.science.org/doi/10.1126/science.abj8754)
 [Repo](https://github.com/RosettaCommons/RoseTTAFold)
 
-### SaProt
+## SaProt
 protein language model
 
 A structure-aware vocabulary for protein language modeling
 [Paper](https://www.biorxiv.org/content/10.1101/2023.10.01.560349v2)
 [Repo](https://github.com/westlake-repl/SaProt)
 
-### Transception
+## Transception
 protein fitness prediction
 
 Protein Fitness Prediction with Autoregressive Transformers and Inference-time Retrieval
 [Paper](https://arxiv.org/abs/2205.13760)
 [Repo](https://github.com/OATML-Markslab/Tranception)
 
-### TransFun
+## TransFun
 protein function prediction
 
 A method using a transformer-based protein language model and 3D-equivariant graph neural networks (EGNN) to distill information from both protein sequences and structures to predict protein function in terms of Gene Ontology (GO) terms
 [Paper](https://pubmed.ncbi.nlm.nih.gov/37387145/)
 [Repo](https://github.com/jianlin-cheng/TransFun)
 
-### xTrimoPGLM
+## xTrimoPGLM
 protein language model
 
 Predicts antibody naturalness and structures, both essential to the field of antibody-based drug design
 [Paper](https://www.biorxiv.org/content/10.1101/2023.07.05.547496v3)
 [Repo](https://github.com/biomap-research/xTrimoMultimer)
 
-### REXzyme
+## REXzyme
 A Translation Machine for the Generation of New-to-Nature Enzymes
 
 
