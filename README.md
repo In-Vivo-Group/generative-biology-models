@@ -67,7 +67,11 @@ ppl = calculatePerplexity(sequence, model, tokenizer)
 </details>
 
 ## RITA
-protein language model
+
+A suite of autoregressive generative models for protein sequences,
+with up to 1.2 billion parameters, trained on over
+280 million protein sequences belonging to the
+UniRef-100 database. 
 [Paper](https://huggingface.co/papers/2205.05789)
 [Repo](https://huggingface.co/lightonai/RITA_xl)
 
