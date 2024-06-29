@@ -93,7 +93,31 @@ UniRef-100 database.
   ```
 </details>
 
+## RFDiffusion
 
+RFdiffusion is an open source method for structure generation, with or without conditional information
+[Paper](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
+[Repo](https://github.com/RosettaCommons/RFdiffusion)
+
+<details>
+
+  <summary>Sample code</summary>
+
+  ### Unconditional design of a protein
+  For this, we just need to specify three things:
+
+  1. The length of the protein
+  2. The location where we want to write files to
+  3. The number of designs we want
+
+     ```py
+
+     ./scripts/run_inference.py 'contigmap.contigs=[150-150]' inference.output_prefix=test_outputs/test inference.num_designs=10
+
+
+     ```
+  
+</details>
 
 ## Ankh
 Ankh is the first general-purpose protein language model trained on Google's TPU-V4 surpassing the state-of-the-art performance with dramatically less parameters, promoting accessibility to research innovation via attainable resources.
@@ -223,12 +247,7 @@ protein language model
 [Paper](https://www.biorxiv.org/content/10.1101/2023.07.15.549154v2)
 [Repo](https://github.com/GrayLab/MaskedProteinEnT)
 
-## RFDiffusion
-protein generation
 
-RFdiffusion is an open source method for structure generation, with or without conditional information
-[Paper](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
-[Repo](https://github.com/RosettaCommons/RFdiffusion)
 
 ## RGN2
 protein language model
