@@ -7,6 +7,20 @@ Collection of generative biology models
 
 Refer to our [paper](https://in-vivo-group.github.io/generative-biology/) for a detailed description of these models as seen in [Protein large language models](https://in-vivo-group.github.io/generative-biology/#protein-large-language-models-prot-llms.) and [Genomic large language models](https://in-vivo-group.github.io/generative-biology/#genomic-large-language-models-gene-llms)
 
+Our focus is on promptinh and generating novel sequence so we'll be mostly considering decoder-based and encoder-decoder based models.
+
+## Protein large language models
+- Decoder-based models
+  - ProGen
+  - ProGen2
+  - ProtGPT2
+  - RITA
+  - PoET
+  - LM-Design
+  - ZymCTRL
+  - IgLM
+
+
 ## ProtGPT2
 ProtGPT2 is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
 [Paper](https://www.nature.com/articles/s41467-022-32007-7)
