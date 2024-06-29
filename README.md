@@ -2,6 +2,9 @@
 
 Collection of generative biology models
 
+[![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/resolve/main/open-in-hf-spaces-lg.svg)](https://huggingface.co/spaces/samwell/genBio)
+
+
 ## ProtGPT2
 ProtGPT2 is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
 [Paper](https://www.nature.com/articles/s41467-022-32007-7)
