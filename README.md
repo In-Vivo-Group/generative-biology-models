@@ -3,7 +3,7 @@
 Collection of generative biology models
 
 ## ProtGPT2
-ProtGPT2 (peer-reviewed paper) is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
+ProtGPT2 is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
 [Paper](https://www.nature.com/articles/s41467-022-32007-7)
 [Repo](https://huggingface.co/nferruz/ProtGPT2)
 
@@ -11,6 +11,9 @@ ProtGPT2 (peer-reviewed paper) is a language model that speaks the protein langu
   <summary>Sample code</summary>
 
   ### Generating de novo proteins in a zero-shot fashion
+
+  In the example below, ProtGPT2 generates sequences that follow the amino acid 'M'. Any other amino acid, oligomer, fragment, or protein of choice can be selected instead. The model      will generate the most probable sequences that follow the input. Alternatively, the input field can also be left empty and it will choose the starting tokens.
+  
   ```py
   >>> from transformers import pipeline
   >>> protgpt2 = pipeline('text-generation', model="nferruz/ProtGPT2")
