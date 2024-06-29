@@ -7,7 +7,7 @@ Collection of generative biology models
 
 Refer to our [paper](https://in-vivo-group.github.io/generative-biology/) for a detailed description of these models as seen in [Protein large language models](https://in-vivo-group.github.io/generative-biology/#protein-large-language-models-prot-llms.) and [Genomic large language models](https://in-vivo-group.github.io/generative-biology/#genomic-large-language-models-gene-llms)
 
-Our focus is on promptinh and generating novel sequence so we'll be mostly considering decoder-based and encoder-decoder based models.
+Our focus is on prompting and generating novel sequences so we'll be mostly considering decoder-based and encoder-decoder based models.
 
 ## Protein large language models
 - Decoder-based models
