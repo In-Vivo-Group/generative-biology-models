@@ -119,6 +119,33 @@ RFdiffusion is an open source method for structure generation, with or without c
   
 </details>
 
+## Protpardelle
+
+An all-atom protein generative model
+
+[Paper](https://doi.org/10.1101/2023.05.24.542194)
+[Code](https://github.com/ProteinDesignLab/protpardelle)
+
+<details>
+  <summary>Sample code</summary>
+  Demo: https://huggingface.co/spaces/ProteinDesignLab/protpardelle
+
+  ### Unconditional sampling:
+  For this, we just need to specify three things:
+
+  1. The length of the protein (max and min)
+  2. How frequently to select sequence length
+  3. The number of samples we want
+  
+  
+</details>
+
+
+
+<br/>
+<br/>
+<br/>
+
 ## Ankh
 Ankh is the first general-purpose protein language model trained on Google's TPU-V4 surpassing the state-of-the-art performance with dramatically less parameters, promoting accessibility to research innovation via attainable resources.
 
