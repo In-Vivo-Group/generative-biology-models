@@ -3,6 +3,7 @@
 Collection of generative biology models
 
 [![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/resolve/main/open-in-hf-spaces-lg.svg)](https://huggingface.co/spaces/samwell/genBio)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1S1H8a2i-ETLCT43mFwX2Q4yboHrtcc9X)
 
 
 ## ProtGPT2
