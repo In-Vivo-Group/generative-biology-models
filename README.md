@@ -36,6 +36,36 @@ ProtGPT2 is a language model that speaks the protein language and can be used fo
   ```
 </details>
 
+<details>
+<summary>How to select the best sequences</summary>
+
+### Compute the perplexity for each sequence as follows:
+Where ppl is a value with the perplexity for that sequence. Given the fast inference times, the best threshold as to what perplexity value gives a 'good' or 'bad' sequence, is to sample many sequences, order them by perplexity, and select those with the lower values (the lower the better).
+
+```py
+sequence='MGEAMGLTQPAVSRAVARLEERVGIRIFNRTARAITLTDEGRRFYEAVAPLLAGIEMHGYR\nVNVEGVAQLLELYARDILAEGRLVQLLPEWAD'
+
+#Convert the sequence to a string like this
+#(note we have to introduce new line characters every 60 amino acids,
+#following the FASTA file format).
+
+sequence = "<|endoftext|>MGEAMGLTQPAVSRAVARLEERVGIRIFNRTARAITLTDEGRRFYEAVAPLLAGIEMHGY\nRVNVEGVAQLLELYARDILAEGRLVQLLPEWAD<|endoftext|>"
+
+# ppl function
+def calculatePerplexity(sequence, model, tokenizer):
+    input_ids = torch.tensor(tokenizer.encode(sequence)).unsqueeze(0) 
+    input_ids = input_ids.to(device)
+    with torch.no_grad():
+        outputs = model(input_ids, labels=input_ids)
+    loss, logits = outputs[:2]
+    return math.exp(loss)
+
+#And hence: 
+ppl = calculatePerplexity(sequence, model, tokenizer)
+
+```
+</details>
+
 
 
 ## Ankh
