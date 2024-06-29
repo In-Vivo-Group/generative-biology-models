@@ -20,6 +20,17 @@ Our focus is on prompting and generating novel sequences so we'll be mostly cons
   - ZymCTRL
   - IgLM
 
+- Encoder-decoder based models
+  - ProstT5
+  - pAbT5
+  - xTrimoPGLM
+  - Small-Scale protein Language Model (SS-pLM)
+  - MSA2Prot
+  - MSA-Augmenter
+  - Fold2Seq
+
+
+
 
 ## ProtGPT2
 ProtGPT2 is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
