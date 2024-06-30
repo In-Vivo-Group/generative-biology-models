@@ -2,6 +2,178 @@
 
 Collection of generative biology models
 
+[![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/resolve/main/open-in-hf-spaces-sm.svg)](https://huggingface.co/spaces/samwell/genBio)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1S1H8a2i-ETLCT43mFwX2Q4yboHrtcc9X)
+
+Refer to our [paper](https://in-vivo-group.github.io/generative-biology/) for a detailed description of these models as seen in [Protein large language models](https://in-vivo-group.github.io/generative-biology/#protein-large-language-models-prot-llms.) and [Genomic large language models](https://in-vivo-group.github.io/generative-biology/#genomic-large-language-models-gene-llms). Our focus is on prompting and generating novel sequences so we'll be mostly considering decoder-based and encoder-decoder based models.
+
+## Protein large language models
+- Decoder-based models
+  - ProGen
+  - ProGen2
+  - ProtGPT2
+  - RITA
+  - PoET
+  - LM-Design
+  - ZymCTRL
+  - IgLM
+
+- Encoder-decoder based models
+  - ProstT5
+  - pAbT5
+  - xTrimoPGLM
+  - Small-Scale protein Language Model (SS-pLM)
+  - MSA2Prot
+  - MSA-Augmenter
+  - Fold2Seq
+
+
+
+
+## ProtGPT2
+ProtGPT2 is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
+[Paper](https://www.nature.com/articles/s41467-022-32007-7)
+[Repo](https://huggingface.co/nferruz/ProtGPT2)
+
+<details>
+  <summary>Sample code</summary>
+
+  ### Generating de novo proteins in a zero-shot fashion
+
+  In the example below, ProtGPT2 generates sequences that follow the amino acid 'M'. Any other amino acid, oligomer, fragment, or protein of choice can be selected instead. The model      will generate the most probable sequences that follow the input. Alternatively, the input field can also be left empty and it will choose the starting tokens.
+  
+  ```py
+  >>> from transformers import pipeline
+  >>> protgpt2 = pipeline('text-generation', model="nferruz/ProtGPT2")
+  >>> sequences = protgpt2("<|endoftext|>", max_length=100, do_sample=True, top_k=950, repetition_penalty=1.2, num_return_sequences=10, eos_token_id=0)
+  >>> for seq in sequences:
+          print(seq):
+
+  {'generated_text': 'MINDLLDISRIISGKMTLDRAEVNLTAIARQVVEEQRQAAEAKSIQLLCSTPDTNHYVFG\nDFDRLKQTLWNLLSNAVKFTPSGGTVELELGYNAEGMEVYVKDSGIGIDPAFLPYVFDRF\nRQSDAADSRNYGGLGLGLAIVKHLLDLHEGNVSAQSEGFGKGATFTVLLPLKPLKRELAA\nVNRHTAVQQSAPLNDNLAGMKILIVEDRPDTNEMVSYILEEAGAIVETAESGAAALTSLK\nSYSPDLVLSDIGMPMMDGYEMIEYIREWKTTKGG'}
+{'generated_text': 'MQGDSSISSSNRMFT\nLCKPLTVANETSTLSTTRNSKSNKRVSKQRVNLAESPERNAPSPASIKTNETEEFSTIKT\nTNNEVLGYEPNYVSYDFVPMEKCNLCNENCSIELASLNEETFVKKTICCHECRKKAIENA\nENNNTKGSAVSNNSVTSSSGRKKIIVSGSQILRNLDSLTSSKSNISTLLNPNHLAKLAKN\nGNLSSLSSLQSSASSISKSSSTSSTPTTSPKVSSPTNSPSSSPINSPTP'}
+{'generated_text': 'M\nSTHVSLENTLASLQATFFSLEARHTALETQLLSTRTELAATKQELVRVQAEISRADAQAQ\nDLKAQILTLKEKADQAEVEAAAATQRAEESQAALEAQTAELAQLRLEKQAPQHVAEEGDP\nQPAAPTTQAQSPVTSAAAAASSAASAEPSKPELTFPAYTKRKPPTITHAPKAPTKVALNP\nSTLSTSGSGGGAKADPTPTTPVPSSSAGLIPKALRLPPPVTPAASGAKPAPSARSKLRGP\nDAPLSPSTQS'}
+{'generated_text': 'MVLLSTGPLPILFLGPSLAELNQKYQVVSDTLLRFTNTV\nTFNTLKFLGSDS\n'}
+{'generated_text': 'M\nNNDEQPFIMSTSGYAGNTTSSMNSTSDFNTNNKSNTWSNRFSNFIAYFSGVGWFIGAISV\nIFFIIYVIVFLSRKTKPSGQKQYSRTERNNRDVDSIKRANYYG\n'}
+{'generated_text': 'M\nEAVYSFTITETGTGTVEVTPLDRTISGADIVYPPDTACVPLTVQPVINANGTWTLGSGCT\nGHFSVDTTGHVNCLTGGFGAAGVHTVIYTVETPYSGNSFAVIDVNVTEPSGPGDGGNGNG\nDRGDGPDNGGGNNPGPDPDPSTPPPPGDCSSPLPVVCSDRDCADFDTQAQVQIYLDRYGG\nTCDLDGNHDGTPCENLPNNSGGQSSDSGNGGGNPGTGSTHQVVTGDCLWNIASRNNGQGG\nQAWPALLAANNESITNP'}
+{'generated_text': 'M\nGLTTSGGARGFCSLAVLQELVPRPELLFVIDRAFHSGKHAVDMQVVDQEGLGDGVATLLY\nAHQGLYTCLLQAEARLLGREWAAVPALEPNFMESPLIALPRQLLEGLEQNILSAYGSEWS\nQDVAEPQGDTPAALLATALGLHEPQQVAQRRRQLFEAAEAALQAIRASA\n'}
+{'generated_text': 'M\nGAAGYTGSLILAALKQNPDIAVYALNRNDEKLKDVCGQYSNLKGQVCDLSNESQVEALLS\nGPRKTVVNLVGPYSFYGSRVLNACIEANCHYIDLTGEVYWIPQMIKQYHHKAVQSGARIV\nPAVGFDSTPAELGSFFAYQQCREKLKKAHLKIKAYTGQSGGASGGTILTMIQHGIENGKI\nLREIRSMANPREPQSDFKHYKEKTFQDGSASFWGVPFVMKGINTPVVQRSASLLKKLYQP\nFDYKQCFSFSTLLNSLFSYIFNAI'}
+{'generated_text': 'M\nKFPSLLLDSYLLVFFIFCSLGLYFSPKEFLSKSYTLLTFFGSLLFIVLVAFPYQSAISAS\nKYYYFPFPIQFFDIGLAENKSNFVTSTTILIFCFILFKRQKYISLLLLTVVLIPIISKGN\nYLFIILILNLAVYFFLFKKLYKKGFCISLFLVFSCIFIFIVSKIMYSSGIEGIYKELIFT\nGDNDGRFLIIKSFLEYWKDNLFFGLGPSSVNLFSGAVSGSFHNTYFFIFFQSGILGAFIF\nLLPFVYFFISFFKDNSSFMKLF'}
+{'generated_text': 'M\nRRAVGNADLGMEAARYEPSGAYQASEGDGAHGKPHSLPFVALERWQQLGPEERTLAEAVR\nAVLASGQYLLGEAVRRFETAVAAWLGVPFALGVASGTAALTLALRAYGVGPGDEVIVPAI\nTFIATSNAITAAGARPVLVDIDPSTWNMSVASLAARLTPKTKAILAVHLWGQPVDMHPLL\nDIAAQANLAVIEDCAQALGASIAGTKVGTFGDAAAFSFYPTKNMTTGEGGMLVTNARDLA\nQAARMLRSHGQDPPTAYMHSQVGFN'}
+
+  
+  ```
+</details>
+
+<details>
+<summary>How to select the best sequences</summary>
+
+### Compute the perplexity for each sequence as follows:
+Where ppl is a value with the perplexity for that sequence. Given the fast inference times, the best threshold as to what perplexity value gives a 'good' or 'bad' sequence, is to sample many sequences, order them by perplexity, and select those with the lower values (the lower the better).
+
+```py
+sequence='MGEAMGLTQPAVSRAVARLEERVGIRIFNRTARAITLTDEGRRFYEAVAPLLAGIEMHGYR\nVNVEGVAQLLELYARDILAEGRLVQLLPEWAD'
+
+#Convert the sequence to a string like this
+#(note we have to introduce new line characters every 60 amino acids,
+#following the FASTA file format).
+
+sequence = "<|endoftext|>MGEAMGLTQPAVSRAVARLEERVGIRIFNRTARAITLTDEGRRFYEAVAPLLAGIEMHGY\nRVNVEGVAQLLELYARDILAEGRLVQLLPEWAD<|endoftext|>"
+
+# ppl function
+def calculatePerplexity(sequence, model, tokenizer):
+    input_ids = torch.tensor(tokenizer.encode(sequence)).unsqueeze(0) 
+    input_ids = input_ids.to(device)
+    with torch.no_grad():
+        outputs = model(input_ids, labels=input_ids)
+    loss, logits = outputs[:2]
+    return math.exp(loss)
+
+#And hence: 
+ppl = calculatePerplexity(sequence, model, tokenizer)
+
+```
+</details>
+
+## RITA
+
+A suite of autoregressive generative models for protein sequences,
+with up to 1.2 billion parameters, trained on over
+280 million protein sequences belonging to the
+UniRef-100 database. 
+[Paper](https://huggingface.co/papers/2205.05789)
+[Repo](https://huggingface.co/lightonai/RITA_xl)
+
+<details>
+<summary>Sample code</summary>
+
+  ```py
+  from transformers import AutoModel, AutoModelForCausalLM
+  model = AutoModelForCausalLM.from_pretrained("lightonai/RITA_xl, trust_remote_code=True")
+  tokenizer = AutoTokenizer.from_pretrained("lightonai/RITA_xl")
+
+  from transformers import pipeline
+  rita_gen = pipeline('text-generation', model=model, tokenizer=tokenizer)
+  sequences = rita_gen("MAB", max_length=20, do_sample=True, top_k=950, repetition_penalty=1.2, 
+                       num_return_sequences=2, eos_token_id=2)
+  for seq in sequences:
+      print(f"seq: {seq['generated_text'].replace(' ', '')}")
+
+  ```
+</details>
+
+## RFDiffusion
+
+RFdiffusion is an open source method for structure generation, with or without conditional information
+[Paper](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
+[Repo](https://github.com/RosettaCommons/RFdiffusion)
+
+<details>
+
+  <summary>Sample code</summary>
+
+  ### Unconditional design of a protein
+  For this, we just need to specify three things:
+
+  1. The length of the protein
+  2. The location where we want to write files to
+  3. The number of designs we want
+
+     ```py
+
+     ./scripts/run_inference.py 'contigmap.contigs=[150-150]' inference.output_prefix=test_outputs/test inference.num_designs=10
+
+
+     ```
+  
+</details>
+
+## Protpardelle
+
+An all-atom protein generative model
+
+[Paper](https://doi.org/10.1101/2023.05.24.542194)
+[Code](https://github.com/ProteinDesignLab/protpardelle)
+
+<details>
+  <summary>Sample code</summary>
+  Demo: https://huggingface.co/spaces/ProteinDesignLab/protpardelle
+
+  ### Unconditional sampling:
+  For this, we just need to specify three things:
+
+  1. The length of the protein (max and min)
+  2. How frequently to select sequence length
+  3. The number of samples we want
+  
+  
+</details>
+
+
+
+<br/>
+<br/>
+<br/>
+
 ## Ankh
 Ankh is the first general-purpose protein language model trained on Google's TPU-V4 surpassing the state-of-the-art performance with dramatically less parameters, promoting accessibility to research innovation via attainable resources.
 
@@ -48,10 +220,7 @@ Pretrained model on protein sequences using a masked language modeling (MLM) obj
 [Paper](https://www.biorxiv.org/content/10.1101/2020.07.12.199554v4)
 [Repo](https://github.com/agemagician/ProtTrans)
 
-## ProtGPT2
-ProtGPT2 (peer-reviewed paper) is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
-[Paper](https://www.nature.com/articles/s41467-022-32007-7)
-[Repo](https://huggingface.co/nferruz/ProtGPT2)
+
 
 ## AlphaFold2
 Protein structure prediction
@@ -133,22 +302,13 @@ protein language model
 [Paper](https://www.biorxiv.org/content/10.1101/2023.07.15.549154v2)
 [Repo](https://github.com/GrayLab/MaskedProteinEnT)
 
-## RFDiffusion
-protein generation
 
-RFdiffusion is an open source method for structure generation, with or without conditional information
-[Paper](https://www.biorxiv.org/content/10.1101/2022.12.09.519842v1)
-[Repo](https://github.com/RosettaCommons/RFdiffusion)
 
 ## RGN2
 protein language model
 [Paper](https://www.biorxiv.org/content/10.1101/2021.08.02.454840v1)
 [Repo](https://github.com/aqlaboratory/rgn2)
 
-## RITA
-protein language model
-[Paper](https://huggingface.co/papers/2205.05789)
-[Repo](https://huggingface.co/lightonai/RITA_xl)
 
 ## RoseTTaFold
 protein structure prediction
