@@ -210,6 +210,84 @@ PoET is a generative model of protein families as sequences-of-sequences. It is 
 
 <details>
   <summary>Setup</summary>
+
+  #### Creating an MSA
+  ```py
+
+  # from a seed sequence
+
+  seed = "MDVFMKGLSKAKEGVVAAAEKTKQGVAEAAGKTKEGVLYVGSKTKEGVVHGVATVAEKTKEQVTNVGGAVVTGVTAVAQKTVEGAGSIAAATGFVKKDQLGKNEEGAPQEGILEDMPVDPDNEAYEMPSEEGYQDYEPEA"
+
+  # Use the Align module to create an MSA from your seed sequence
+
+  msa = session.align.create_msa(seed.encode())
+  r = msa.wait()
+  msa.get_msa()
+
+  # uploading an MSA
+
+  f = ">101\nAAALLLPPP"
+  msa = session.align.upload_msa(f.encode())
+  
+  
+
+  ```
+
+ #### Creating a prompt
+ Prompt is an input that instructs the PoET model to generate the desired response. PoET uses a prompt made up of a set of related sequences that encode information about the fitness landscape of a protein of interest. These sequences may be homologs, family members, or some other grouping that represents your protein of interest.
+
+ ```py
+# generating your prompt
+num_prompts = 3
+prompt = msa.sample_prompt(num_ensemble_prompts=num_prompts, random_seed=42)
+print(prompt)
+
+import pandas as pd
+prompt.wait()
+prompt_result = []
+for i in range(num_prompts):
+    prompt_result.append( pd.DataFrame( list(prompt.get_prompt(i)) , columns=['name','sequence']) )
+
+prompt_result
+
+```
+
+ #### Scoring sequences
+  Scoring your sequences is a starting point for predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
+  PoET returns a log-likelihood score, which quantifies the model’s level of confidence in the generated sequence. The higher or less negative the score is, the more fit the sequence.
+
+ ```py
+poet = session.embedding.get_model("poet")
+seqs = ["AAAGGG","LKALKA", "PGIAAA"]
+
+poet = session.embedding.get_model('poet')
+
+# Initiate scoring
+score_job = poet.score(prompt=prompt.prompt_id, sequences=seqs )
+
+# View your results
+score_results = score_job.wait()
+score_results
+ ```
+
+#### PoET single site analysis
+Single site analysis using PoET scores all single substitution variants of an input sequence with a given prompt. Use this as a starting point to design single mutant or combinatorial variant libraries and predict the strength of protein activity.
+
+```py
+poet = session.embedding.get_model("poet")
+sspjob = poet.single_site(prompt=prompt, sequence="AAPLAA".encode())
+
+# Retrieve and view your results
+
+ssp_results = sspjob.wait()
+ssp_results
+
+# Access specific sites
+ssp_results[b'A1R']
+
+```
+
+ 
 </details>
 
 <details>
