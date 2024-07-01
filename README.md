@@ -9,30 +9,87 @@ Refer to our [paper](https://in-vivo-group.github.io/generative-biology/) for a 
 
 ## Protein large language models
 - [Decoder-based models](#decoder-based-models)
-  - ProGen
-  - ProGen2
-  - ProtGPT2
-  - RITA
-  - PoET
-  - LM-Design
-  - ZymCTRL
-  - IgLM
+  - [ProGen](#progen)
+  - [ProGen2](#progen2)
+  - [ProtGPT2](#protgpt2)
+  - [RITA](#rita)
+  - [PoET](#poet)
+  - [LM-Design](#lm-design)
+  - [ZymCTRL](#zymctrl)
+  - [IgLM](#iglm)
 
 - [Encoder-decoder based models](#encoder-decoder-based-models)
-  - ProstT5
-  - pAbT5
-  - xTrimoPGLM
-  - Small-Scale protein Language Model (SS-pLM)
-  - MSA2Prot
-  - MSA-Augmenter
-  - Fold2Seq
+  - [ProstT5](#prostt5)
+  - [pAbT5](#pabt5)
+  - [xTrimoPGLM](#xtrimopglm)
+  - [Small-Scale protein Language Model (SS-pLM)](#ss-plm)
+  - [MSA2Prot](#msa2prot)
+  - [MSA-Augmenter](#msa-augmenter)
+  - [Fold2Seq](#fold2seq)
 
 ## Decoder-based models
 
-Details about decoder-based models go here.
+### ProGen
 
+Details about ProGen go here.
 
-Details about decoder-based models go here.
+### ProGen2
+
+Details about ProGen2 go here.
+
+### ProtGPT2
+
+Details about ProtGPT2 go here.
+
+### RITA
+
+Details about RITA go here.
+
+### PoET
+
+Details about PoET go here.
+
+### LM-Design
+
+Details about LM-Design go here.
+
+### ZymCTRL
+
+Details about ZymCTRL go here.
+
+### IgLM
+
+Details about IgLM go here.
+
+## Encoder-decoder based models
+
+### ProstT5
+
+Details about ProstT5 go here.
+
+### pAbT5
+
+Details about pAbT5 go here.
+
+### xTrimoPGLM
+
+Details about xTrimoPGLM go here.
+
+### Small-Scale protein Language Model (SS-pLM)
+
+Details about SS-pLM go here.
+
+### MSA2Prot
+
+Details about MSA2Prot go here.
+
+### MSA-Augmenter
+
+Details about MSA-Augmenter go here.
+
+### Fold2Seq
+
+Details about Fold2Seq go here.
 
 
 
