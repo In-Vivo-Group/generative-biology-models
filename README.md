@@ -152,8 +152,52 @@ ppl = calculatePerplexity(sequence, model, tokenizer)
 
 
 ### RITA
+[Paper](https://huggingface.co/papers/2205.05789)
+[Repo](https://huggingface.co/lightonai/RITA_xl)
 
-Details about RITA go here.
+A suite of autoregressive generative models for protein sequences, with up to 1.2 billion parameters, trained on over 280 million protein sequences belonging to the UniRef-100 database.
+RITA studies how capabilities evolve with models size for autoregressive transformers in the protein domain:
+RITA models were evaluated in next amino acid prediction, zero-shot fitness, and enzyme function
+prediction, showing benefits from increased scale.
+
+<details>
+<summary>Setup</summary>
+
+  ```py
+  from transformers import AutoModel, AutoModelForCausalLM
+  model = AutoModelForCausalLM.from_pretrained("lightonai/RITA_xl, trust_remote_code=True")
+  tokenizer = AutoTokenizer.from_pretrained("lightonai/RITA_xl")
+
+  from transformers import pipeline
+  rita_gen = pipeline('text-generation', model=model, tokenizer=tokenizer)
+
+  ```
+</details>
+
+<details>
+  <summary>Generating samples</summary>
+
+  ```py
+  sequences = rita_gen("MAB", max_length=20, do_sample=True, top_k=950, repetition_penalty=1.2, num_return_sequences=2, eos_token_id=2)
+  for seq in sequences:
+      print(f"seq: {seq['generated_text'].replace(' ', '')}")
+  ```
+</details>
+
+<details>
+  <summary>Perplexity evaluation</summary>
+  In all cases, performance is correlated with models size and RITA-XL provides the best results.
+  ![perplexity](https://github.com/In-Vivo-Group/generative-biology-models/assets/56901167/0bab9572-6ae5-4a2d-b421-496914acee6d)
+
+
+</details>
+
+<details>
+  <summary>Fitness calculation</summary>
+  In all cases, performance is correlated with models size and RITA-XL provides the best results.
+
+</details>
+
 
 ### PoET
 
@@ -201,35 +245,6 @@ Details about MSA-Augmenter go here.
 
 Details about Fold2Seq go here.
 
-
-
-
-## RITA
-
-A suite of autoregressive generative models for protein sequences,
-with up to 1.2 billion parameters, trained on over
-280 million protein sequences belonging to the
-UniRef-100 database. 
-[Paper](https://huggingface.co/papers/2205.05789)
-[Repo](https://huggingface.co/lightonai/RITA_xl)
-
-<details>
-<summary>Sample code</summary>
-
-  ```py
-  from transformers import AutoModel, AutoModelForCausalLM
-  model = AutoModelForCausalLM.from_pretrained("lightonai/RITA_xl, trust_remote_code=True")
-  tokenizer = AutoTokenizer.from_pretrained("lightonai/RITA_xl")
-
-  from transformers import pipeline
-  rita_gen = pipeline('text-generation', model=model, tokenizer=tokenizer)
-  sequences = rita_gen("MAB", max_length=20, do_sample=True, top_k=950, repetition_penalty=1.2, 
-                       num_return_sequences=2, eos_token_id=2)
-  for seq in sequences:
-      print(f"seq: {seq['generated_text'].replace(' ', '')}")
-
-  ```
-</details>
 
 ## RFDiffusion
 
