@@ -10,7 +10,6 @@ Refer to our [paper](https://in-vivo-group.github.io/generative-biology/) for a 
 ## Protein large language models
 - [Decoder-based models](#decoder-based-models)
   - [ProGen](#progen)
-  - [ProGen2](#progen2)
   - [ProtGPT2](#protgpt2)
   - [RITA](#rita)
   - [PoET](#poet)
@@ -30,12 +29,56 @@ Refer to our [paper](https://in-vivo-group.github.io/generative-biology/) for a 
 ## Decoder-based models
 
 ### ProGen
+[Paper](https://www.nature.com/articles/s41587-022-01618-2)
+[Repo](https://github.com/salesforce/progen)
 
-Details about ProGen go here.
+ProGen, is a high capacity language model trained on the largest protein database available (~280 million samples). ProGen tackles one of the most challenging problems in science and indicates that large-scale generative modeling may unlock the potential for protein engineering to transform synthetic biology, material science, and human health. Progen demonstrates that an artificial intelligence (AI) model can learn the language of biology in order to generate proteins in a controllable fashion.
 
-### ProGen2
+<details>
+  <summary>Setup</summary>
 
-Details about ProGen2 go here.
+  ```py
+  # cloning the repo
+
+  git clone https://github.com/salesforce/progen
+  cd progen/progen2
+
+  # downloading the checkpoint
+
+  model=progen2-large
+  wget -P checkpoints/${model} https://storage.googleapis.com/sfr-progen-research/checkpoints/${model}.tar.gz
+  tar -xvf checkpoints/${model}/${model}.tar.gz -C checkpoints/${model}/
+
+  # setting up a virtual environment
+
+  python3.8 -m venv .venv
+  source .venv/bin/activate
+  pip3 install --upgrade pip setuptools
+  pip3 install -r requirements.txt
+
+  ```
+</details>
+
+<details>
+  <summary>Generating samples</summary>
+
+  ```py
+  
+  python3 sample.py --model ${model} --t 0.8 --p 0.9 --max-length 1024 --num-samples 2 --context "1"
+  ```
+</details>
+
+<details>
+  <summary>Log likelihood</summary>
+
+  Calculating the log-likelihood helps in assessing how well the generated protein sequences match real-world protein sequences or how likely a given sequence is under the model.
+
+  ```py
+python3 likelihood.py --model ${model} --context "1MGHGVSRPPVVTLRPAVLDDCPVLWRWRNDPETRQASVDEREIPVDTHTRWFEETLKRFDRKLFIVSADGVDAGMVRLDIQDRDAAVSVNIAPEWRGRGVGPRALGCLSREAFGPLALLRMSAVVKRENAASRIAFERAGFTVVDTGGPLLHSSKARLHVVAAIQARMGSTRLPGKVLVSIAGRPTIQRIAERLAVCQELDAVAVSTSVENRDDAIADLAAHLGLVCVRGSETDLIERLGRTAARTGADALVRITADCPLVDPALVDRVVGVWRRSAGRLEYVSNVFPPTFPDGLDVEVLSRTVLERLDREVSDPFFRESLTAYVREHPAAFEIANVEHPEDLSRLRWTMDYPEDLAFVEAVYRRLGNQGEIFGMDDLLRLLEWSPELRDLNRCREDVTVERGIRGTGYHAALRARGQAP2"
+
+  ```
+  
+</details>
 
 ### ProtGPT2
 
@@ -334,13 +377,6 @@ protein language model
 The PRoBERTa model is fine-tuned to solve two prediction tasks, protein family memberships and protein-protein interactions.
 [Paper](https://dl.acm.org/doi/10.1145/3388440.3412467)
 [Repo](https://github.com/annambiar/PRoBERTa)
-
-## ProGen
-protein language model
-
- ProGen can learn the language of biology in order to controllably generate proteins.
-[Repo](https://www.nature.com/articles/s41587-022-01618-2)
-[Repo](https://github.com/salesforce/progen)
 
 ## Protein Generator
 protein generation
