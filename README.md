@@ -500,7 +500,67 @@ if __name__=='__main__':
 
 ### IgLM
 
-Details about IgLM go here.
+[Paper](https://www.biorxiv.org/content/10.1101/2021.12.13.472419v1)
+[Repo](https://github.com/Graylab/IgLM)
+
+Immunoglobulin Language Model (IgLM), a deep generative language model for generating synthetic libraries by re-designing variable-length spans of antibody sequences. IgLM formulates anti-body design as an autoregressive sequence generation task based on text-infilling in natural language. We trained IgLM on approximately 558M antibody heavy- and light-chain variable sequences, conditioning on each sequence’s chain type and species-of-origin.
+
+<details>
+  <summary>Setup & sequence generation</summary>
+
+  ```py
+  pip install iglm
+
+  ```
+
+### Full antibody sequence generation
+
+```py
+from iglm import IgLM
+
+iglm = IgLM()
+
+prompt_sequence = "EVQ"
+chain_token = "[HEAVY]"
+species_token = "[HUMAN]"
+num_seqs = 100
+
+generated_seqs = iglm.generate(
+    chain_token,
+    species_token,
+    prompt_sequence=prompt_sequence,
+    num_to_generate=num_seqs,
+)
+```
+</details>
+
+<details>
+  <summary>Sequence evaluation</summary>
+
+  IgLM can be used to calculate the log likelihood of a sequence given a chain type and species-of-origin.
+
+Full sequence log likelihood calculation:
+
+```py
+import math
+from iglm import IgLM
+
+iglm = IgLM()
+
+sequence = "EVQLVESGGGLVQPGGSLRLSCAASGFNIKEYYMHWVRQAPGKGLEWVGLIDPEQGNTIYDPKFQDRATISADNSKNTAYLQMNSLRAEDTAVYYCARDTAAYFDYWGQGTLVTVS"
+chain_token = "[HEAVY]"
+species_token = "[HUMAN]"
+
+log_likelihood = iglm.log_likelihood(
+    sequence,
+    chain_token,
+    species_token,
+)
+perplexity = math.exp(-log_likelihood)
+```
+</details>
+
+
 
 ## Encoder-decoder based models
 
