@@ -187,6 +187,7 @@ prediction, showing benefits from increased scale.
 <details>
   <summary>Perplexity evaluation</summary>
   In all cases, performance is correlated with models size and RITA-XL provides the best results.
+  
   ![perplexity](https://github.com/In-Vivo-Group/generative-biology-models/assets/56901167/0bab9572-6ae5-4a2d-b421-496914acee6d)
 
 
@@ -194,8 +195,9 @@ prediction, showing benefits from increased scale.
 
 <details>
   <summary>Fitness calculation</summary>
-  In all cases, performance is correlated with models size and RITA-XL provides the best results.
-
+  The ability of RITA models to predict the effects of mutations by interpreting the likelihood that the model outputs for a given protein as its fitness value was assessed. 
+  <a href="https://github.com/lightonai/RITA/blob/master/compute_fitness.py">Learn more</a>
+  
 </details>
 
 
