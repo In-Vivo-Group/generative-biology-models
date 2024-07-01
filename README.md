@@ -248,6 +248,8 @@ prompt_result = []
 for i in range(num_prompts):
     prompt_result.append( pd.DataFrame( list(prompt.get_prompt(i)) , columns=['name','sequence']) )
 
+prompt.id
+
 prompt_result
 
 ```
@@ -292,6 +294,38 @@ ssp_results[b'A1R']
 
 <details>
   <summary>Generating samples</summary>
+  Use the PoET model to generate de novo sequences conditioned on the sequence context provided by a prompt. Use this as a starting point for generating a diverse library without 
+  existing experimental data.
+
+  `prompt` : Uses a prompt from an align workflow to condition Poet model.
+  
+  `num_samples` : Indicates the number of samples to generate. The default is 100.
+  
+  `temperature` : The temperature for sampling. Higher values produce more random outputs. The default is 1.0.
+  
+  `topk` : The number of top-k residues to consider during sampling. The default is None.
+  
+  `topp` : The cumulative probability threshold for top-p sampling. The default is None.
+  
+  `max_length` : The maximum length of generated proteins. The default is 1000.
+  
+  `seed` : Seed for random number generation. The default is a random number.
+
+  
+  ```py
+  # Generating 10 samples
+  poet = session.embedding.get_model("poet")
+  genjob = poet.generate(prompt=prompt, num_samples=100) #prompt_id from your previous prompt job
+
+  # View your results once the job is complete
+  gen_results = genjob.wait()
+  gen_results
+  
+
+  ```
+
+  
+  
 </details>
 
 
