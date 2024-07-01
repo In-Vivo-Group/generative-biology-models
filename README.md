@@ -8,7 +8,7 @@ Collection of generative biology models
 Refer to our [paper](https://in-vivo-group.github.io/generative-biology/) for a detailed description of these models as seen in [Protein large language models](https://in-vivo-group.github.io/generative-biology/#protein-large-language-models-prot-llms.) and [Genomic large language models](https://in-vivo-group.github.io/generative-biology/#genomic-large-language-models-gene-llms). Our focus is on prompting and generating novel sequences so we'll be mostly considering decoder-based and encoder-decoder based models.
 
 ## Engineering prompts
-Case study: PoET [engineering prompt](https://www.openprotein.ai/poet-a-high-performing-protein-language-model-for-zero-shot-prediction#:~:text=false%20positive%20rate.-,Engineering%20prompts,-PoET%27s%20predictions%20can)
+Case study: PoET [engineering prompt](https://www.openprotein.ai/poet-a-high-performing-protein-language-model-for-zero-shot-prediction#:~:text=false%20positive%20rate.-,Engineering%20prompts,-PoET%27s%20predictions%20can) from [OpenProtein.AI](https://www.openprotein.ai/)
 
 ## Protein large language models
 - [Decoder-based models](#decoder-based-models)
