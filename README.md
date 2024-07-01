@@ -27,7 +27,6 @@ Refer to our [paper](https://in-vivo-group.github.io/generative-biology/) for a 
   - MSA-Augmenter
   - Fold2Seq
 
-<a name="decoder-based-models"></a>
 ## Decoder-based models
 
 Details about decoder-based models go here.
