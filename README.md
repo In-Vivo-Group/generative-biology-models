@@ -334,6 +334,9 @@ ssp_results[b'A1R']
 
 ### LM-Design
 
+[Paper](https://arxiv.org/abs/2302.01649)
+[Repo](https://github.com/BytedProtein/ByProt)
+
 Details about LM-Design go here.
 
 ### ZymCTRL
