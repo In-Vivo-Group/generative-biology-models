@@ -203,7 +203,19 @@ prediction, showing benefits from increased scale.
 
 ### PoET
 
-Details about PoET go here.
+[Paper](https://arxiv.org/abs/2306.06156)
+[Repo](https://github.com/OpenProteinAI/PoET)
+
+PoET is a generative model of protein families as sequences-of-sequences. It is a state-of-the-art protein language model for variant effect prediction and conditional sequence generation.
+
+<details>
+  <summary>Setup</summary>
+</details>
+
+<details>
+  <summary>Generating samples</summary>
+</details>
+
 
 ### LM-Design
 
