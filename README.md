@@ -337,7 +337,74 @@ ssp_results[b'A1R']
 [Paper](https://arxiv.org/abs/2302.01649)
 [Repo](https://github.com/BytedProtein/ByProt)
 
-Details about LM-Design go here.
+LM-Design is a generic approach to reprogramming sequence-based protein language models (pLMs), that have learned massive sequential evolutionary knowledge from the universe of natural protein sequences, to acquire an immediate capability to design preferable protein sequences for given folds. LM-Design demonstrates that language models are strong structure-based protein designers.
+
+<details>
+  <summary>Setup</summary>
+
+  ```py
+
+  # clone project
+git clone --recursive https://url/to/this/repo/ByProt.git
+cd ByProt
+
+# create conda virtual environment
+env_name=ByProt
+
+conda create -n ${env_name} python=3.7 pip
+conda activate ${env_name}
+
+# automatically install everything else
+bash install.sh
+
+ ```
+
+```py
+from byprot.utils.config import compose_config as Cfg
+from byprot.tasks.fixedbb.designer import Designer
+
+# 1. instantialize designer
+exp_path = "/root/research/projects/ByProt/run/logs/fixedbb/cath_4.2/lm_design_esm2_650m"
+cfg = Cfg(
+    cuda=True,
+    generator=Cfg(
+        max_iter=5,
+        strategy='denoise', 
+        temperature=0,
+        eval_sc=False,  
+    )
+)
+designer = Designer(experiment_path=exp_path, cfg=cfg)
+
+# 2. load structure from pdb file
+pdb_path = "/root/research/projects/ByProt/data/3uat_variants/3uat_GK.pdb"
+designer.set_structure(pdb_path)
+```
+
+</details>
+
+<details>
+  <summary>Generating samples</summary>
+
+  ```py
+  # 3. generate sequence from the given structure
+designer.generate()
+# you can override generator arguments by passing generator_args, e.g.,
+designer.generate(
+    generator_args={
+        'max_iter': 5, 
+        'temperature': 0.1,
+    }
+)
+
+# 4. calculate evaluation metircs
+designer.calculate_metrics()
+## prediction: LNYTRPVIILGPFKDRMNDDLLSEMPDKFGSCVPHTTRPKREYEIDGRDYHFVSSREEMEKDIQNHEFIEAGEYNDNLYGTSIESVREVAMEGKHCILDVSGNAIQRLIKADLYPIAIFIRPRSVENVREMNKRLTEEQAKEIFERAQELEEEFMKYFTAIVEGDTFEEIYNQVKSIIEEESG
+## recovery: 0.7595628415300546
+  ```
+
+  
+</details>
 
 ### ZymCTRL
 
