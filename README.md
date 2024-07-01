@@ -7,46 +7,107 @@ Collection of generative biology models
 
 Refer to our [paper](https://in-vivo-group.github.io/generative-biology/) for a detailed description of these models as seen in [Protein large language models](https://in-vivo-group.github.io/generative-biology/#protein-large-language-models-prot-llms.) and [Genomic large language models](https://in-vivo-group.github.io/generative-biology/#genomic-large-language-models-gene-llms). Our focus is on prompting and generating novel sequences so we'll be mostly considering decoder-based and encoder-decoder based models.
 
+## Engineering prompts
+Case study: PoET [engineering prompt](https://www.openprotein.ai/poet-a-high-performing-protein-language-model-for-zero-shot-prediction#:~:text=false%20positive%20rate.-,Engineering%20prompts,-PoET%27s%20predictions%20can) from [OpenProtein.AI](https://www.openprotein.ai/)
+
 ## Protein large language models
-- Decoder-based models
-  - ProGen
-  - ProGen2
-  - ProtGPT2
-  - RITA
-  - PoET
-  - LM-Design
-  - ZymCTRL
-  - IgLM
+- [Decoder-based models](#decoder-based-models)
+  - [ProGen](#progen)
+  - [ProtGPT2](#protgpt2)
+  - [RITA](#rita)
+  - [PoET](#poet)
+  - [LM-Design](#lm-design)
+  - [ZymCTRL](#zymctrl)
+  - [IgLM](#iglm)
 
-- Encoder-decoder based models
-  - ProstT5
-  - pAbT5
-  - xTrimoPGLM
-  - Small-Scale protein Language Model (SS-pLM)
-  - MSA2Prot
-  - MSA-Augmenter
-  - Fold2Seq
+- [Encoder-decoder based models](#encoder-decoder-based-models)
+  - [ProstT5](#prostt5)
+  - [pAbT5](#pabt5)
+  - [xTrimoPGLM](#xtrimopglm)
+  - [Small-Scale protein Language Model (SS-pLM)](#ss-plm)
+  - [MSA2Prot](#msa2prot)
+  - [MSA-Augmenter](#msa-augmenter)
+  - [Fold2Seq](#fold2seq)
 
+## Decoder-based models
 
+### ProGen
+[Paper](https://www.nature.com/articles/s41587-022-01618-2)
+[Repo](https://github.com/salesforce/progen)
 
+ProGen, is a high capacity language model trained on the largest protein database available (~280 million samples). ProGen tackles one of the most challenging problems in science and indicates that large-scale generative modeling may unlock the potential for protein engineering to transform synthetic biology, material science, and human health. Progen demonstrates that an artificial intelligence (AI) model can learn the language of biology in order to generate proteins in a controllable fashion.
 
-## ProtGPT2
-ProtGPT2 is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
+<details>
+  <summary>Setup</summary>
+
+  ```py
+  # cloning the repo
+
+  git clone https://github.com/salesforce/progen
+  cd progen/progen2
+
+  # downloading the checkpoint
+
+  model=progen2-large
+  wget -P checkpoints/${model} https://storage.googleapis.com/sfr-progen-research/checkpoints/${model}.tar.gz
+  tar -xvf checkpoints/${model}/${model}.tar.gz -C checkpoints/${model}/
+
+  # setting up a virtual environment
+
+  python3.8 -m venv .venv
+  source .venv/bin/activate
+  pip3 install --upgrade pip setuptools
+  pip3 install -r requirements.txt
+
+  ```
+</details>
+
+<details>
+  <summary>Generating samples</summary>
+
+  ```py
+  
+  python3 sample.py --model ${model} --t 0.8 --p 0.9 --max-length 1024 --num-samples 2 --context "1"
+  ```
+</details>
+
+<details>
+  <summary>Log likelihood</summary>
+
+  Calculating the log-likelihood helps in assessing how well the generated protein sequences match real-world protein sequences or how likely a given sequence is under the model.
+
+  ```py
+python3 likelihood.py --model ${model} --context "1MGHGVSRPPVVTLRPAVLDDCPVLWRWRNDPETRQASVDEREIPVDTHTRWFEETLKRFDRKLFIVSADGVDAGMVRLDIQDRDAAVSVNIAPEWRGRGVGPRALGCLSREAFGPLALLRMSAVVKRENAASRIAFERAGFTVVDTGGPLLHSSKARLHVVAAIQARMGSTRLPGKVLVSIAGRPTIQRIAERLAVCQELDAVAVSTSVENRDDAIADLAAHLGLVCVRGSETDLIERLGRTAARTGADALVRITADCPLVDPALVDRVVGVWRRSAGRLEYVSNVFPPTFPDGLDVEVLSRTVLERLDREVSDPFFRESLTAYVREHPAAFEIANVEHPEDLSRLRWTMDYPEDLAFVEAVYRRLGNQGEIFGMDDLLRLLEWSPELRDLNRCREDVTVERGIRGTGYHAALRARGQAP2"
+
+  ```
+  
+</details>
+
+### ProtGPT2
 [Paper](https://www.nature.com/articles/s41467-022-32007-7)
 [Repo](https://huggingface.co/nferruz/ProtGPT2)
 
-<details>
-  <summary>Sample code</summary>
+ProtGPT2 is a language model that speaks the protein language and can be used for de novo protein design and engineering. ProtGPT2 generated sequences conserve natural proteins' critical features (amino acid propensities, secondary structural content, and globularity) while exploring unseen regions of the protein space.
 
-  ### Generating de novo proteins in a zero-shot fashion
+
+<details>
+  <summary>Setup</summary>
 
   In the example below, ProtGPT2 generates sequences that follow the amino acid 'M'. Any other amino acid, oligomer, fragment, or protein of choice can be selected instead. The model      will generate the most probable sequences that follow the input. Alternatively, the input field can also be left empty and it will choose the starting tokens.
   
   ```py
-  >>> from transformers import pipeline
-  >>> protgpt2 = pipeline('text-generation', model="nferruz/ProtGPT2")
-  >>> sequences = protgpt2("<|endoftext|>", max_length=100, do_sample=True, top_k=950, repetition_penalty=1.2, num_return_sequences=10, eos_token_id=0)
-  >>> for seq in sequences:
+  from transformers import pipeline
+  protgpt2 = pipeline('text-generation', model="nferruz/ProtGPT2")
+  
+  ```
+</details>
+
+<details>
+  <summary>Generating samples</summary>
+
+  ```py
+  sequences = protgpt2("<|endoftext|>", max_length=100, do_sample=True, top_k=950, repetition_penalty=1.2, num_return_sequences=10, eos_token_id=0)
+  for seq in sequences:
           print(seq):
 
   {'generated_text': 'MINDLLDISRIISGKMTLDRAEVNLTAIARQVVEEQRQAAEAKSIQLLCSTPDTNHYVFG\nDFDRLKQTLWNLLSNAVKFTPSGGTVELELGYNAEGMEVYVKDSGIGIDPAFLPYVFDRF\nRQSDAADSRNYGGLGLGLAIVKHLLDLHEGNVSAQSEGFGKGATFTVLLPLKPLKRELAA\nVNRHTAVQQSAPLNDNLAGMKILIVEDRPDTNEMVSYILEEAGAIVETAESGAAALTSLK\nSYSPDLVLSDIGMPMMDGYEMIEYIREWKTTKGG'}
@@ -60,14 +121,12 @@ ProtGPT2 is a language model that speaks the protein language and can be used fo
 {'generated_text': 'M\nKFPSLLLDSYLLVFFIFCSLGLYFSPKEFLSKSYTLLTFFGSLLFIVLVAFPYQSAISAS\nKYYYFPFPIQFFDIGLAENKSNFVTSTTILIFCFILFKRQKYISLLLLTVVLIPIISKGN\nYLFIILILNLAVYFFLFKKLYKKGFCISLFLVFSCIFIFIVSKIMYSSGIEGIYKELIFT\nGDNDGRFLIIKSFLEYWKDNLFFGLGPSSVNLFSGAVSGSFHNTYFFIFFQSGILGAFIF\nLLPFVYFFISFFKDNSSFMKLF'}
 {'generated_text': 'M\nRRAVGNADLGMEAARYEPSGAYQASEGDGAHGKPHSLPFVALERWQQLGPEERTLAEAVR\nAVLASGQYLLGEAVRRFETAVAAWLGVPFALGVASGTAALTLALRAYGVGPGDEVIVPAI\nTFIATSNAITAAGARPVLVDIDPSTWNMSVASLAARLTPKTKAILAVHLWGQPVDMHPLL\nDIAAQANLAVIEDCAQALGASIAGTKVGTFGDAAAFSFYPTKNMTTGEGGMLVTNARDLA\nQAARMLRSHGQDPPTAYMHSQVGFN'}
 
-  
   ```
 </details>
 
 <details>
-<summary>How to select the best sequences</summary>
+<summary>Compute the perplexity</summary>
 
-### Compute the perplexity for each sequence as follows:
 Where ppl is a value with the perplexity for that sequence. Given the fast inference times, the best threshold as to what perplexity value gives a 'good' or 'bad' sequence, is to sample many sequences, order them by perplexity, and select those with the lower values (the lower the better).
 
 ```py
@@ -94,17 +153,18 @@ ppl = calculatePerplexity(sequence, model, tokenizer)
 ```
 </details>
 
-## RITA
 
-A suite of autoregressive generative models for protein sequences,
-with up to 1.2 billion parameters, trained on over
-280 million protein sequences belonging to the
-UniRef-100 database. 
+### RITA
 [Paper](https://huggingface.co/papers/2205.05789)
 [Repo](https://huggingface.co/lightonai/RITA_xl)
 
+A suite of autoregressive generative models for protein sequences, with up to 1.2 billion parameters, trained on over 280 million protein sequences belonging to the UniRef-100 database.
+RITA studies how capabilities evolve with models size for autoregressive transformers in the protein domain:
+RITA models were evaluated in next amino acid prediction, zero-shot fitness, and enzyme function
+prediction, showing benefits from increased scale.
+
 <details>
-<summary>Sample code</summary>
+<summary>Setup</summary>
 
   ```py
   from transformers import AutoModel, AutoModelForCausalLM
@@ -113,13 +173,425 @@ UniRef-100 database.
 
   from transformers import pipeline
   rita_gen = pipeline('text-generation', model=model, tokenizer=tokenizer)
-  sequences = rita_gen("MAB", max_length=20, do_sample=True, top_k=950, repetition_penalty=1.2, 
-                       num_return_sequences=2, eos_token_id=2)
-  for seq in sequences:
-      print(f"seq: {seq['generated_text'].replace(' ', '')}")
 
   ```
 </details>
+
+<details>
+  <summary>Generating samples</summary>
+
+  ```py
+  sequences = rita_gen("MAB", max_length=20, do_sample=True, top_k=950, repetition_penalty=1.2, num_return_sequences=2, eos_token_id=2)
+  for seq in sequences:
+      print(f"seq: {seq['generated_text'].replace(' ', '')}")
+  ```
+</details>
+
+<details>
+  <summary>Perplexity evaluation</summary>
+  In all cases, performance is correlated with models size and RITA-XL provides the best results.
+  
+  ![perplexity](https://github.com/In-Vivo-Group/generative-biology-models/assets/56901167/0bab9572-6ae5-4a2d-b421-496914acee6d)
+
+
+</details>
+
+<details>
+  <summary>Fitness calculation</summary>
+  The ability of RITA models to predict the effects of mutations by interpreting the likelihood that the model outputs for a given protein as its fitness value was assessed. 
+  <a href="https://github.com/lightonai/RITA/blob/master/compute_fitness.py">Learn more</a>
+  
+</details>
+
+
+### PoET
+
+[Paper](https://arxiv.org/abs/2306.06156)
+[Repo](https://github.com/OpenProteinAI/PoET)
+
+PoET is a generative model of protein families as sequences-of-sequences. It is a state-of-the-art protein language model for variant effect prediction and conditional sequence generation.
+
+<details>
+  <summary>Setup</summary>
+
+  #### Creating an MSA
+  ```py
+
+  # from a seed sequence
+
+  seed = "MDVFMKGLSKAKEGVVAAAEKTKQGVAEAAGKTKEGVLYVGSKTKEGVVHGVATVAEKTKEQVTNVGGAVVTGVTAVAQKTVEGAGSIAAATGFVKKDQLGKNEEGAPQEGILEDMPVDPDNEAYEMPSEEGYQDYEPEA"
+
+  # Use the Align module to create an MSA from your seed sequence
+
+  msa = session.align.create_msa(seed.encode())
+  r = msa.wait()
+  msa.get_msa()
+
+  # uploading an MSA
+
+  f = ">101\nAAALLLPPP"
+  msa = session.align.upload_msa(f.encode())
+  
+  
+
+  ```
+
+ #### Creating a prompt
+ Prompt is an input that instructs the PoET model to generate the desired response. PoET uses a prompt made up of a set of related sequences that encode information about the fitness landscape of a protein of interest. These sequences may be homologs, family members, or some other grouping that represents your protein of interest.
+
+ ```py
+# generating your prompt
+num_prompts = 3
+prompt = msa.sample_prompt(num_ensemble_prompts=num_prompts, random_seed=42)
+print(prompt)
+
+import pandas as pd
+prompt.wait()
+prompt_result = []
+for i in range(num_prompts):
+    prompt_result.append( pd.DataFrame( list(prompt.get_prompt(i)) , columns=['name','sequence']) )
+
+prompt.id
+
+prompt_result
+
+```
+
+ #### Scoring sequences
+  Scoring your sequences is a starting point for predicting the outcomes of a specific sequence or prioritizing variants for further analysis.
+  PoET returns a log-likelihood score, which quantifies the model’s level of confidence in the generated sequence. The higher or less negative the score is, the more fit the sequence.
+
+ ```py
+poet = session.embedding.get_model("poet")
+seqs = ["AAAGGG","LKALKA", "PGIAAA"]
+
+poet = session.embedding.get_model('poet')
+
+# Initiate scoring
+score_job = poet.score(prompt=prompt.prompt_id, sequences=seqs )
+
+# View your results
+score_results = score_job.wait()
+score_results
+ ```
+
+#### PoET single site analysis
+Single site analysis using PoET scores all single substitution variants of an input sequence with a given prompt. Use this as a starting point to design single mutant or combinatorial variant libraries and predict the strength of protein activity.
+
+```py
+poet = session.embedding.get_model("poet")
+sspjob = poet.single_site(prompt=prompt, sequence="AAPLAA".encode())
+
+# Retrieve and view your results
+
+ssp_results = sspjob.wait()
+ssp_results
+
+# Access specific sites
+ssp_results[b'A1R']
+
+```
+
+ 
+</details>
+
+<details>
+  <summary>Generating samples</summary>
+  Use the PoET model to generate de novo sequences conditioned on the sequence context provided by a prompt. Use this as a starting point for generating a diverse library without 
+  existing experimental data.
+
+  `prompt` : Uses a prompt from an align workflow to condition Poet model.
+  
+  `num_samples` : Indicates the number of samples to generate. The default is 100.
+  
+  `temperature` : The temperature for sampling. Higher values produce more random outputs. The default is 1.0.
+  
+  `topk` : The number of top-k residues to consider during sampling. The default is None.
+  
+  `topp` : The cumulative probability threshold for top-p sampling. The default is None.
+  
+  `max_length` : The maximum length of generated proteins. The default is 1000.
+  
+  `seed` : Seed for random number generation. The default is a random number.
+
+  
+  ```py
+  # Generating 10 samples
+  poet = session.embedding.get_model("poet")
+  genjob = poet.generate(prompt=prompt, num_samples=100) #prompt_id from your previous prompt job
+
+  # View your results once the job is complete
+  gen_results = genjob.wait()
+  gen_results
+  
+
+  ```
+
+  
+  
+</details>
+
+
+### LM-Design
+
+[Paper](https://arxiv.org/abs/2302.01649)
+[Repo](https://github.com/BytedProtein/ByProt)
+
+LM-Design is a generic approach to reprogramming sequence-based protein language models (pLMs), that have learned massive sequential evolutionary knowledge from the universe of natural protein sequences, to acquire an immediate capability to design preferable protein sequences for given folds. LM-Design demonstrates that language models are strong structure-based protein designers.
+
+<details>
+  <summary>Setup</summary>
+
+  ```py
+
+  # clone project
+git clone --recursive https://url/to/this/repo/ByProt.git
+cd ByProt
+
+# create conda virtual environment
+env_name=ByProt
+
+conda create -n ${env_name} python=3.7 pip
+conda activate ${env_name}
+
+# automatically install everything else
+bash install.sh
+
+ ```
+
+```py
+from byprot.utils.config import compose_config as Cfg
+from byprot.tasks.fixedbb.designer import Designer
+
+# 1. instantialize designer
+exp_path = "/root/research/projects/ByProt/run/logs/fixedbb/cath_4.2/lm_design_esm2_650m"
+cfg = Cfg(
+    cuda=True,
+    generator=Cfg(
+        max_iter=5,
+        strategy='denoise', 
+        temperature=0,
+        eval_sc=False,  
+    )
+)
+designer = Designer(experiment_path=exp_path, cfg=cfg)
+
+# 2. load structure from pdb file
+pdb_path = "/root/research/projects/ByProt/data/3uat_variants/3uat_GK.pdb"
+designer.set_structure(pdb_path)
+```
+
+</details>
+
+<details>
+  <summary>Generating samples</summary>
+
+  ```py
+  # 3. generate sequence from the given structure
+designer.generate()
+# you can override generator arguments by passing generator_args, e.g.,
+designer.generate(
+    generator_args={
+        'max_iter': 5, 
+        'temperature': 0.1,
+    }
+)
+
+# 4. calculate evaluation metircs
+designer.calculate_metrics()
+## prediction: LNYTRPVIILGPFKDRMNDDLLSEMPDKFGSCVPHTTRPKREYEIDGRDYHFVSSREEMEKDIQNHEFIEAGEYNDNLYGTSIESVREVAMEGKHCILDVSGNAIQRLIKADLYPIAIFIRPRSVENVREMNKRLTEEQAKEIFERAQELEEEFMKYFTAIVEGDTFEEIYNQVKSIIEEESG
+## recovery: 0.7595628415300546
+  ```
+
+  
+</details>
+
+### ZymCTRL
+
+[Paper](https://www.biorxiv.org/content/10.1101/2024.05.03.592223v1)
+[Repo](https://huggingface.co/AI4PD/ZymCTRL)
+
+ZymCTRL (Enzyme Control) is a conditional language model for the generation of artificial functional enzymes. It was trained on the UniProt database of sequences containing (Enzyme Commission) EC annotations, comprising over 37 M sequences. Given a user-defined Enzymatic Commission (EC) number, the model generates protein sequences that fulfil that catalytic reaction. The generated sequences are ordered, globular, and distant to natural ones, while their intended catalytic properties match those defined by users.
+
+<details>
+<summary>Setup, sample generation and perplexity</summary>
+
+Given that generation runs so fast, it is recommended that hundreds or thousands are generated and then only picking the best 5% or less. With the script below, that would mean picking only those that finish in '_0.fasta'. Good perplexity values for this model so be below 1.75-1.5.
+
+  ```py
+import torch
+from transformers import GPT2LMHeadModel, AutoTokenizer
+import os
+from tqdm import tqdm
+import math
+
+def remove_characters(sequence, char_list):
+    "This function removes special tokens used during training."
+    columns = sequence.split('<sep>')
+    seq = columns[1]
+    for char in char_list:
+        seq = seq.replace(char, '')
+    return seq
+
+def calculatePerplexity(input_ids,model,tokenizer):
+    "This function computes perplexities for the generated sequences"
+    with torch.no_grad():
+        outputs = model(input_ids, labels=input_ids)
+    loss, logits = outputs[:2]
+    return math.exp(loss)
+        
+def main(label, model,special_tokens,device,tokenizer):
+    # Generating sequences
+    input_ids = tokenizer.encode(label,return_tensors='pt').to(device)
+    outputs = model.generate(
+        input_ids, 
+        top_k=9, #tbd
+        repetition_penalty=1.2,
+        max_length=1024,
+        eos_token_id=1,
+        pad_token_id=0,
+           do_sample=True,
+           num_return_sequences=20) # Depending non your GPU, you'll be able to generate fewer or more sequences. This runs in an A40.
+    
+    # Check sequence sanity, ensure sequences are not-truncated.
+    # The model will truncate sequences longer than the specified max_length (1024 above). We want to avoid those sequences.
+    new_outputs = [ output for output in outputs if output[-1] == 0]
+    if not new_outputs:
+        print("not enough sequences with short lengths!!")
+
+    # Compute perplexity for every generated sequence in the batch
+    ppls = [(tokenizer.decode(output), calculatePerplexity(output, model, tokenizer)) for output in new_outputs ]
+
+    # Sort the batch by perplexity, the lower the better
+    ppls.sort(key=lambda i:i[1]) # duplicated sequences?
+
+    # Final dictionary with the results
+    sequences={}
+    sequences[label] = [(remove_characters(x[0], special_tokens), x[1]) for x in ppls]
+
+    return sequences
+
+if __name__=='__main__':
+    device = torch.device("cuda") # Replace with 'cpu' if you don't have a GPU - but it will be slow
+    print('Reading pretrained model and tokenizer')
+    tokenizer = AutoTokenizer.from_pretrained('/path/to/zymCTRL/') # change to ZymCTRL location
+    model = GPT2LMHeadModel.from_pretrained('/path/to/zymCTRL').to(device) # change to ZymCTRL location
+    special_tokens = ['<start>', '<end>', '<|endoftext|>','<pad>',' ', '<sep>']
+
+    # change to the appropriate EC classes
+    labels=['3.5.5.1'] # nitrilases. You can put as many labels as you want.
+
+    for label in tqdm(labels):
+        # We'll run 100 batches per label. 20 sequences will be generated per batch.
+        for i in range(0,100): 
+            sequences = main(label, model, special_tokens, device, tokenizer)
+            for key,value in sequences.items():
+                for index, val in enumerate(value):
+                    # Sequences will be saved with the name of the label followed by the batch index,
+                    # and the order of the sequence in that batch.           
+                    fn = open(f"/path/to/folder/{label}_{i}_{index}.fasta", "w")
+                    fn.write(f'>{label}_{i}_{index}\t{val[1]}\n{val[0]}')
+                    fn.close()
+  ```
+</details>
+
+
+
+
+### IgLM
+
+[Paper](https://www.biorxiv.org/content/10.1101/2021.12.13.472419v1)
+[Repo](https://github.com/Graylab/IgLM)
+
+Immunoglobulin Language Model (IgLM), a deep generative language model for generating synthetic libraries by re-designing variable-length spans of antibody sequences. IgLM formulates anti-body design as an autoregressive sequence generation task based on text-infilling in natural language. We trained IgLM on approximately 558M antibody heavy- and light-chain variable sequences, conditioning on each sequence’s chain type and species-of-origin.
+
+<details>
+  <summary>Setup & sequence generation</summary>
+
+  ```py
+  pip install iglm
+
+  ```
+
+### Full antibody sequence generation
+
+```py
+from iglm import IgLM
+
+iglm = IgLM()
+
+prompt_sequence = "EVQ"
+chain_token = "[HEAVY]"
+species_token = "[HUMAN]"
+num_seqs = 100
+
+generated_seqs = iglm.generate(
+    chain_token,
+    species_token,
+    prompt_sequence=prompt_sequence,
+    num_to_generate=num_seqs,
+)
+```
+</details>
+
+<details>
+  <summary>Sequence evaluation</summary>
+
+  IgLM can be used to calculate the log likelihood of a sequence given a chain type and species-of-origin.
+
+Full sequence log likelihood calculation:
+
+```py
+import math
+from iglm import IgLM
+
+iglm = IgLM()
+
+sequence = "EVQLVESGGGLVQPGGSLRLSCAASGFNIKEYYMHWVRQAPGKGLEWVGLIDPEQGNTIYDPKFQDRATISADNSKNTAYLQMNSLRAEDTAVYYCARDTAAYFDYWGQGTLVTVS"
+chain_token = "[HEAVY]"
+species_token = "[HUMAN]"
+
+log_likelihood = iglm.log_likelihood(
+    sequence,
+    chain_token,
+    species_token,
+)
+perplexity = math.exp(-log_likelihood)
+```
+</details>
+
+
+
+## Encoder-decoder based models
+
+### ProstT5
+
+Details about ProstT5 go here.
+
+### pAbT5
+
+Details about pAbT5 go here.
+
+### xTrimoPGLM
+
+Details about xTrimoPGLM go here.
+
+### Small-Scale protein Language Model (SS-pLM)
+
+Details about SS-pLM go here.
+
+### MSA2Prot
+
+Details about MSA2Prot go here.
+
+### MSA-Augmenter
+
+Details about MSA-Augmenter go here.
+
+### Fold2Seq
+
+Details about Fold2Seq go here.
+
 
 ## RFDiffusion
 
@@ -270,13 +742,6 @@ protein language model
 The PRoBERTa model is fine-tuned to solve two prediction tasks, protein family memberships and protein-protein interactions.
 [Paper](https://dl.acm.org/doi/10.1145/3388440.3412467)
 [Repo](https://github.com/annambiar/PRoBERTa)
-
-## ProGen
-protein language model
-
- ProGen can learn the language of biology in order to controllably generate proteins.
-[Repo](https://www.nature.com/articles/s41587-022-01618-2)
-[Repo](https://github.com/salesforce/progen)
 
 ## Protein Generator
 protein generation
